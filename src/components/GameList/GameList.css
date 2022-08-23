@@ -1,0 +1,9 @@
+.gameList {
+    /*  */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.gameList > * {
+    margin: 8px;
+}

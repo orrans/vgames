@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "gen": "npx -y simple-scaffold@latest --templates ./components/**/* --create-sub-folder true --sub-folder-name-helper pascalCase --output src/"
   },
   "dependencies": {
     "react": "^18.2.0",
