@@ -22,7 +22,7 @@ export async function saveToken() {
   //   };
 }
 
-export async function getGameList() {
+export async function getGameList(search) {
   const url = "http://localhost:8080/https://api.igdb.com/v4/games/";
 
   const response = await fetch(url, {
@@ -30,6 +30,7 @@ export async function getGameList() {
     method: "POST",
     mode: "cors",
     body: `
+        ${search.length >=2?`search "${search}";`:""}
         fields cover,first_release_date,genres,name,platforms,
                rating,rating_count,screenshots,summary,url, 
                

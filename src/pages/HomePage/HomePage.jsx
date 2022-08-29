@@ -14,19 +14,20 @@ const tmpGamesArr = [
 function HomePage() {
   const [gamesList, setGamesList] = useState([])
   const [loading, setLoading] = useState(true)
+  const [search, setSearch] = useState("")
   useEffect(() => {
     console.log('get games list');
-    getGameList().then((games) => {
+    getGameList(search).then((games) => {
       console.log(games)
       setGamesList(games.map((game) => parseGame(game)));
       console.log('saving', games.map((game) => parseGame(game)))
       setLoading(false);
     });
-  }, []);
+  }, [search]);
 
   return <div className="homePage">
     <Header/>
-    <Search/>
+    <Search onChange={(event)=>setSearch(event.target.value)}/>
     <h1>Browse</h1>
     <GameList games={gamesList} />
   </div>;

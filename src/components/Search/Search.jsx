@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "./Search.css";
 
-function Search() {
+function Search(props) {
   return <div className="search">
-    <input type="text" placeholder="Search"/>
+    <input onKeyUp={props.onChange} type="text" placeholder="Search"/>
   </div>;
 }
 

@@ -17,9 +17,9 @@ function GameCard(props) {
       <div className="title">{title}</div>
       <div>
         {genre.map((genre)=> (
-          <React.Fragment>
-          <div className="genre badge text-bg-primary">{genre}</div>
-          {' '}
+          <React.Fragment key={genre}>
+            <div className="genre badge text-bg-primary">{genre}</div>
+            {' '}
           </React.Fragment>
         ))}</div>
       <button>Add to Wishlist</button>
