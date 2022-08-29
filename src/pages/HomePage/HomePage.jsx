@@ -3,7 +3,7 @@ import "./HomePage.css";
 import Header from "../../components/Header/Header";
 import Search from "../../components/Search/Search";
 import GameList from "../../components/GameList/GameList";
-import { getGameList } from "../../utils/api";
+import { getGameList, parseGame } from "../../utils/api";
 
 const tmpGamesArr = [
   { title: "My game", genre: "Action", picture: "", id: "game_id12" },
@@ -12,17 +12,23 @@ const tmpGamesArr = [
 ];
 
 function HomePage() {
+  const [gamesList, setGamesList] = useState([])
+  const [loading, setLoading] = useState(true)
   useEffect(() => {
     console.log('get games list');
-    getGameList().then((games)=>console.log(games));
-    //.then(() => setLoading(false));
+    getGameList().then((games) => {
+      console.log(games)
+      setGamesList(games.map((game) => parseGame(game)));
+      console.log('saving', games.map((game) => parseGame(game)))
+      setLoading(false);
+    });
   }, []);
 
   return <div className="homePage">
     <Header/>
     <Search/>
     <h1>Browse</h1>
-    <GameList games={tmpGamesArr} />
+    <GameList games={gamesList} />
   </div>;
 }
 

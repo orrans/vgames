@@ -13,13 +13,13 @@ async function getToken() {
 
 export async function saveToken() {
   token = await getToken();
-  headers = new Headers()
-  headers.append('Client-ID', clientID)
-  headers.append('Authorization', `Bearer ${token}`)
-//   headers = {
-//     "Client-ID": clientID,
-//     Authorization: "Bearer " + token,
-//   };
+  headers = new Headers();
+  headers.append("Client-ID", clientID);
+  headers.append("Authorization", `Bearer ${token}`);
+  //   headers = {
+  //     "Client-ID": clientID,
+  //     Authorization: "Bearer " + token,
+  //   };
 }
 
 export async function getGameList() {
@@ -28,12 +28,25 @@ export async function getGameList() {
   const response = await fetch(url, {
     headers,
     method: "POST",
-    mode: 'cors',
+    mode: "cors",
     body: `
-        fields cover,first_release_date,genres,name,platforms,rating,rating_count,screenshots,summary,url;
+        fields cover,first_release_date,genres,name,platforms,
+               rating,rating_count,screenshots,summary,url, 
+               
+               cover.url, genres.name, screenshots.url, artworks.*;
         limit 50;
     `,
   });
   const json = await response.json();
   return json;
+}
+
+export function parseGame(originalGame) {
+  const game = {
+    title: originalGame.name,
+    id: originalGame.id,
+    genre: originalGame.genres?.map((genre)=>genre.name) || [],
+    picture: originalGame.cover?.url || originalGame.artworks?.[0]?.url,
+  };
+  return game;
 }

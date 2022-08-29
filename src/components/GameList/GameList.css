@@ -3,7 +3,10 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+    align-items: flex-start;
 }
 .gameList > * {
     margin: 8px;
+    width: 150px;
+    
 }

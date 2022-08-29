@@ -10,14 +10,18 @@ function GameCard(props) {
         src={
           picture
             ? picture
-            : "https://placeholder.photo/img/200x300?text=game&bg_color=999999"
+            : "https://placeholder.photo/img/90x90?text=game&bg_color=999999"
         }
         className="gamePic"
       />
       <div className="title">{title}</div>
       <div>
-        <div className="genre badge text-bg-primary">{genre}</div>
-      </div>
+        {genre.map((genre)=> (
+          <React.Fragment>
+          <div className="genre badge text-bg-primary">{genre}</div>
+          {' '}
+          </React.Fragment>
+        ))}</div>
       <button>Add to Wishlist</button>
     </div>
   );
