@@ -3,6 +3,7 @@ import Header from "../../components/Header/Header";
 import { getSingleGame, parseGame } from "../../utils/api";
 import { useParams } from 'react-router-dom';
 import "./GameDetailsPage.css";
+import GenreList from "../../components/GenreList/GenreList";
 
 function GameDetailsPage(props) {
   const [game, setGame] = useState();
@@ -27,6 +28,9 @@ function GameDetailsPage(props) {
     <div className="gameDetailsPage">
       <Header />
       <h1 className="gameTitle">{game.title}</h1>
+      <div>
+     <GenreList  genre={game.genre}/>
+      </div>
       <p className="gameDesc">{game.description}</p>
       <div>
         {game.screenshots.map((picURL) => (
@@ -34,13 +38,7 @@ function GameDetailsPage(props) {
         ))}
       </div>
       <div className="gameCover">{game.cover}</div>
-      <div>
-        {game.genre.map((genre) => (
-          <React.Fragment key={genre}>
-            <div className="genre badge text-bg-primary">{genre}</div>{" "}
-          </React.Fragment>
-        ))}
-      </div>
+      
       <div className="gameURL">{game.url}</div>
     </div>
   );

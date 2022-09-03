@@ -30,7 +30,7 @@ export async function getGameList(search) {
     method: "POST",
     mode: "cors",
     body: `
-        ${search.length >=2?`search "${search}";`:""}
+        ${search.length >= 2 ? `search "${search}";` : ""}
         fields cover,first_release_date,genres,name,platforms,
                rating,rating_count,screenshots,summary,url, 
                
@@ -62,16 +62,65 @@ export async function getSingleGame(id) {
   return json[0];
 }
 
-
 export function parseGame(originalGame) {
   const game = {
     title: originalGame.name,
     id: originalGame.id,
-    genre: originalGame.genres?.map((genre)=>genre.name) || [],
-    picture: originalGame.cover?.url || originalGame.artworks?.[0]?.url ,
-    screenshots: originalGame.screenshots?.map((screenshot)=>screenshot.url) || [],
+    genre: originalGame.genres?.map((genre) => genre.name) || [],
+    picture: originalGame.cover?.url || originalGame.artworks?.[0]?.url,
+    screenshot_thumbs:
+      originalGame.screenshots?.map((screenshot) => screenshot.url) || [],
+    screenshots:
+      originalGame.screenshots?.map((screenshot) =>
+        screenshot.url.replace("t_thumb", "t_original")
+      ) || [],
     description: originalGame.summary,
     url: originalGame.url,
   };
   return game;
+}
+
+export function getWishList() {
+  const gameListString = localStorage.getItem("wishList") ?? "[]";
+  const gameList = JSON.parse(gameListString);
+  return gameList;
+}
+
+export function saveWishList(gameList) {
+  const updatedListString = JSON.stringify(gameList);
+  localStorage.setItem("wishList", updatedListString);
+}
+
+export function addToWishList(game) {
+  const gameList = getWishList();
+  if (!findGame(gameList, game)) {
+    gameList.push(game);
+  }
+  saveWishList(gameList);
+}
+
+export function removeFromWishList(game) {
+  const gameList = getWishList();
+  const gameIndex = findGameIndex(gameList, game);
+  if (gameIndex != -1) {
+    gameList.splice(gameIndex, 1);
+  }
+  saveWishList(gameList);
+}
+
+export function updateWishList(game) {
+  const gameList = getWishList();
+  const gameIndex = findGameIndex(gameList, game);
+  if (gameIndex != -1) {
+    gameList[gameIndex] = game;
+  }
+  saveWishList(gameList);
+}
+
+export function findGame(gameList, game) {
+  return gameList.find((currentGame) => game.id == currentGame.id);
+}
+
+export function findGameIndex(gameList, game) {
+  return gameList.findIndex((currentGame) => game.id == currentGame.id);
 }

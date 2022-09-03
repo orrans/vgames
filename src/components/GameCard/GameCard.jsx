@@ -1,14 +1,28 @@
 import React, { useState } from "react";
 import "./GameCard.css";
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import GenreList from "../GenreList/GenreList";
+import {
+  addToWishList,
+  findGame,
+  getWishList,
+  removeFromWishList,
+} from "../../utils/api";
 
 function GameCard(props) {
-  const { title, id, genre, picture } = props;
-const navTo =  useNavigate()
+  const { title, id, genre, picture } = props.game;
+  const navTo = useNavigate();
+  const wishList = getWishList();
+  const isInWishListOriginal = Boolean(findGame(wishList, props.game));
+  const [isInWishList, setIsInWishList] = useState(isInWishListOriginal);
+  
   return (
-    <div className="gameCard" onClick={()=>{
-      navTo('/game/' + id)
-    }}>
+    <div
+      className="gameCard"
+      onClick={() => {
+        navTo("/game/" + id);
+      }}
+    >
       <img
         src={
           picture
@@ -19,13 +33,25 @@ const navTo =  useNavigate()
       />
       <div className="title">{title}</div>
       <div>
-        {genre.map((genre)=> (
-          <React.Fragment key={genre}>
-            <div className="genre badge text-bg-primary">{genre}</div>
-            {' '}
-          </React.Fragment>
-        ))}</div>
-      <button>Add to Wishlist</button>
+        <GenreList genre={genre} />
+      </div>
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          
+          if (isInWishList) {
+            setIsInWishList(false);
+            removeFromWishList(props.game);
+          } else {
+            setIsInWishList(true);
+            addToWishList(props.game);
+          }
+
+          props.onUpdate?.()
+        }}
+      >
+        {`${isInWishList ? "Remove from" : "Add to"} Wishlist`}
+      </button>
     </div>
   );
 }

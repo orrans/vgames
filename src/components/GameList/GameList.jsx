@@ -11,10 +11,10 @@ function GameList(props) {
       {games.map((game) => (
         <GameCard
           key={game.id}
-          title={game.title}
-          genre={game.genre}
-          picture={game.picture}
-          id={game.id}
+          game={game}
+          onUpdate={() => {
+            props.onUpdate?.()
+          }}
         />
       ))}
       {/* <GameCard title="My game" genre="Action" picture="" id="game_id" />
