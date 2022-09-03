@@ -42,12 +42,34 @@ export async function getGameList(search) {
   return json;
 }
 
+export async function getSingleGame(id) {
+  const url = "http://localhost:8080/https://api.igdb.com/v4/games/";
+
+  const response = await fetch(url, {
+    headers,
+    method: "POST",
+    mode: "cors",
+    body: `
+        where id = ${id};
+        fields cover,first_release_date,genres,name,platforms,
+               rating,rating_count,screenshots,summary,url, 
+               
+               cover.url, genres.name, screenshots.url, artworks.*;
+        limit 50;
+    `,
+  });
+  const json = await response.json();
+  return json[0];
+}
+
+
 export function parseGame(originalGame) {
   const game = {
     title: originalGame.name,
     id: originalGame.id,
     genre: originalGame.genres?.map((genre)=>genre.name) || [],
-    picture: originalGame.cover?.url || originalGame.artworks?.[0]?.url,
+    picture: originalGame.cover?.url || originalGame.artworks?.[0]?.url ,
+    screenshots: originalGame.screenshots?.map((screenshot)=>screenshot.url) || [],
   };
   return game;
 }

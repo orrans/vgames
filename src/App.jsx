@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 import AboutPage from "./pages/AboutPage/AboutPage";
+import GameDetailsPage from "./pages/GameDetailsPage/GameDetailsPage";
 import HomePage from "./pages/HomePage/HomePage";
 import WishListPage from "./pages/WishListPage/WishListPage";
 import { saveToken } from "./utils/api";
@@ -18,9 +19,10 @@ function App() {
 
   return (
     <div className="App">
-      <HomePage/>
+      {/* <HomePage/> */}
       {/* <AboutPage /> */}
       {/* <WishListPage /> */}
+      <GameDetailsPage id={81249}/>
     </div>
   );
 }
