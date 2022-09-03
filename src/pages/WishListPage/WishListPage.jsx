@@ -5,9 +5,7 @@ import Search from "../../components/Search/Search";
 import "./WishListPage.css";
 
 const tmpGamesArr = [
-  { title: "wish game", genre: "Action", picture: "", id: "game_id12" },
-  { title: "wish game1", genre: "Rpg", picture: "", id: "game_id34" },
-  { title: "wish game2", genre: "Puzzle", picture: "", id: "game_id56" },
+  
 ];
 
 function WishListPage() {

@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import "./GameCard.css";
+import {useNavigate} from 'react-router-dom';
 
 function GameCard(props) {
   const { title, id, genre, picture } = props;
-
+const navTo =  useNavigate()
   return (
-    <div className="gameCard">
+    <div className="gameCard" onClick={()=>{
+      navTo('/game/' + id)
+    }}>
       <img
         src={
           picture

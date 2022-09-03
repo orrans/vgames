@@ -70,6 +70,8 @@ export function parseGame(originalGame) {
     genre: originalGame.genres?.map((genre)=>genre.name) || [],
     picture: originalGame.cover?.url || originalGame.artworks?.[0]?.url ,
     screenshots: originalGame.screenshots?.map((screenshot)=>screenshot.url) || [],
+    description: originalGame.summary,
+    url: originalGame.url,
   };
   return game;
 }

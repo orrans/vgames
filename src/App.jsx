@@ -5,6 +5,7 @@ import GameDetailsPage from "./pages/GameDetailsPage/GameDetailsPage";
 import HomePage from "./pages/HomePage/HomePage";
 import WishListPage from "./pages/WishListPage/WishListPage";
 import { saveToken } from "./utils/api";
+import { Link, Route, Routes } from "react-router-dom";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -19,10 +20,12 @@ function App() {
 
   return (
     <div className="App">
-      {/* <HomePage/> */}
-      {/* <AboutPage /> */}
-      {/* <WishListPage /> */}
-      <GameDetailsPage id={81249}/>
+      <Routes>
+        <Route path="/" exact element={<HomePage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/wishlist" element={<WishListPage />} />
+        <Route path="/game/:id" element={<GameDetailsPage />} />
+      </Routes>
     </div>
   );
 }
