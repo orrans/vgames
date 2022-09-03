@@ -32,9 +32,9 @@ export async function getGameList(search) {
     body: `
         ${search.length >= 2 ? `search "${search}";` : ""}
         fields cover,first_release_date,genres,name,platforms,
-               rating,rating_count,screenshots,summary,url, 
-               
-               cover.url, genres.name, screenshots.url, artworks.*;
+              rating,rating_count,screenshots,summary,url,
+              
+              cover.url, genres.name, screenshots.url, artworks.*;
         limit 50;
     `,
   });
