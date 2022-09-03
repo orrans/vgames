@@ -80,47 +80,47 @@ export function parseGame(originalGame) {
   return game;
 }
 
-export function getWishList() {
-  const gameListString = localStorage.getItem("wishList") ?? "[]";
+export function getMyGames() {
+  const gameListString = localStorage.getItem("myGames") ?? "[]";
   const gameList = JSON.parse(gameListString);
   return gameList;
 }
 
-export function saveWishList(gameList) {
+export function saveMyGames(gameList) {
   const updatedListString = JSON.stringify(gameList);
-  localStorage.setItem("wishList", updatedListString);
+  localStorage.setItem("myGames", updatedListString);
 }
 
-export function addToWishList(game) {
-  const gameList = getWishList();
+export function addToMyGames(game) {
+  const gameList = getMyGames();
   if (!findGame(gameList, game)) {
     gameList.push(game);
   }
-  saveWishList(gameList);
+  saveMyGames(gameList);
 }
 
-export function removeFromWishList(game) {
-  const gameList = getWishList();
+export function removeFromMyGames(game) {
+  const gameList = getMyGames();
   const gameIndex = findGameIndex(gameList, game);
   if (gameIndex != -1) {
     gameList.splice(gameIndex, 1);
   }
-  saveWishList(gameList);
+  saveMyGames(gameList);
 }
 
-export function updateWishList(game) {
-  const gameList = getWishList();
+export function updateMyGames(game) {
+  const gameList = getMyGames();
   const gameIndex = findGameIndex(gameList, game);
   if (gameIndex != -1) {
     gameList[gameIndex] = game;
   }
-  saveWishList(gameList);
+  saveMyGames(gameList);
 }
 
 export function findGame(gameList, game) {
-  return gameList.find((currentGame) => game.id == currentGame.id);
+  return gameList.find((currentGame) => game?.id == currentGame.id);
 }
 
 export function findGameIndex(gameList, game) {
-  return gameList.findIndex((currentGame) => game.id == currentGame.id);
+  return gameList.findIndex((currentGame) => game?.id == currentGame.id);
 }

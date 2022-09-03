@@ -3,18 +3,19 @@ import "./GameCard.css";
 import { useNavigate } from "react-router-dom";
 import GenreList from "../GenreList/GenreList";
 import {
-  addToWishList,
+  addToMyGames,
   findGame,
-  getWishList,
-  removeFromWishList,
+  getMyGames,
+  removeFromMyGames,
 } from "../../utils/api";
+import AddToLibraryButton from "../AddToLibraryButton/AddToLibraryButton";
 
 function GameCard(props) {
   const { title, id, genre, picture } = props.game;
   const navTo = useNavigate();
-  const wishList = getWishList();
-  const isInWishListOriginal = Boolean(findGame(wishList, props.game));
-  const [isInWishList, setIsInWishList] = useState(isInWishListOriginal);
+  const myGames = getMyGames();
+  const isInMyGamesOriginal = Boolean(findGame(myGames, props.game));
+  const [isInMyGames, setIsInMyGames] = useState(isInMyGamesOriginal);
   
   return (
     <div
@@ -35,23 +36,7 @@ function GameCard(props) {
       <div>
         <GenreList genre={genre} />
       </div>
-      <button
-        onClick={(e) => {
-          e.stopPropagation();
-          
-          if (isInWishList) {
-            setIsInWishList(false);
-            removeFromWishList(props.game);
-          } else {
-            setIsInWishList(true);
-            addToWishList(props.game);
-          }
-
-          props.onUpdate?.()
-        }}
-      >
-        {`${isInWishList ? "Remove from" : "Add to"} Wishlist`}
-      </button>
+      <AddToLibraryButton game={props.game} onUpdate={props.onUpdate} />
     </div>
   );
 }

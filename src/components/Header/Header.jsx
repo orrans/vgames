@@ -8,8 +8,8 @@ function Header() {
       <img src="https://placeholder.photo/img/300x100?text=vgames&bg_color=999999" />
       <div className="navBar">
         <Link className="navLink" to="/">Home</Link>
+        <Link className="navLink" to="/library">My Games</Link>
         <Link className="navLink" to="/about">About</Link>
-        <Link className="navLink" to="/wishlist">WishList</Link>
       </div>
     </div>
   );
